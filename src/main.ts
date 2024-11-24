@@ -10,7 +10,7 @@ app.use(cors());
 // ROTA PARA CADASTRAR UMA COMIC
 app.post('/comics', async (req, res) => {
   try {
-    const { titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem } = req.body;
+    const { id, titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem } = req.body;
 
     const conexao = await mysql.createConnection({
       host: process.env.dbhost ? process.env.dbhost : "localhost",

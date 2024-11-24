@@ -27,7 +27,7 @@ app.post('/comics', async (req, res) => {
     const [result] = await conexao.query(query, [titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem]);
     await conexao.end();
 
-    res.status(201).send({ id: result.insertId, message: 'Comic cadastrada com sucesso!' });
+    res.status(201).send({ message: 'Comic cadastrada com sucesso!' });
   } catch (e) {
     console.error(e);
     res.status(500).send('Erro do servidor ao cadastrar comic');

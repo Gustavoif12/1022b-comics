@@ -21,9 +21,9 @@ app.post('/comics', async (req, res) => {
     });
 
     const query = `
-      INSERT INTO comics VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO comics VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    const [result] = await conexao.query(query, [titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem]);
+    const [result] = await conexao.query(query, [id, titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem]);
     await conexao.end();
 
     res.status(201).send({ message: 'Comic cadastrada com sucesso!' });

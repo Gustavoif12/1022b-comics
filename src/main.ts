@@ -7,26 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ROTA PARA LISTAR TODAS AS COMICS
-app.get('/comics', async (req, res) => {
-  try {
-    const conexao = await mysql.createConnection({
-      host: process.env.dbhost ? process.env.dbhost : "localhost",
-      user: process.env.dbuser ? process.env.dbuser : "root",
-      password: process.env.dbpassword ? process.env.dbpassword : "",
-      database: process.env.dbname ? process.env.dbname : "comicsdb",
-      port: process.env.dbport ? parseInt(process.env.dbport) : 3306
-    });
-
-    const [result] = await conexao.query('SELECT * FROM comics');
-    await conexao.end();
-    res.send(result);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send('Erro do servidor ao listar comics');
-  }
-});
-
 // ROTA PARA CADASTRAR UMA COMIC
 app.post('/comics', async (req, res) => {
   try {
@@ -51,6 +31,26 @@ app.post('/comics', async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).send('Erro do servidor ao cadastrar comic');
+  }
+});
+
+// ROTA PARA LISTAR TODAS AS COMICS
+app.get('/comics', async (req, res) => {
+  try {
+    const conexao = await mysql.createConnection({
+      host: process.env.dbhost ? process.env.dbhost : "localhost",
+      user: process.env.dbuser ? process.env.dbuser : "root",
+      password: process.env.dbpassword ? process.env.dbpassword : "",
+      database: process.env.dbname ? process.env.dbname : "comicsdb",
+      port: process.env.dbport ? parseInt(process.env.dbport) : 3306
+    });
+
+    const [result] = await conexao.query('SELECT * FROM comics');
+    await conexao.end();
+    res.send(result);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Erro do servidor ao listar comics');
   }
 });
 

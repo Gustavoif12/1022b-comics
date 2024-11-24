@@ -21,8 +21,7 @@ app.post('/comics', async (req, res) => {
     });
 
     const query = `
-      INSERT INTO comics (titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO comics VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
     const [result] = await conexao.query(query, [titulo, autor, ano_de_publicacao, editora, sinopse, preco, imagem]);
     await conexao.end();
@@ -30,7 +29,7 @@ app.post('/comics', async (req, res) => {
     res.status(201).send({ message: 'Comic cadastrada com sucesso!' });
   } catch (e) {
     console.error(e);
-    res.status(500).send('Erro do servidor ao cadastrar comic');
+    res.status(500).send('Erro do servidor');
   }
 });
 
@@ -50,7 +49,7 @@ app.get('/comics', async (req, res) => {
     res.send(result);
   } catch (e) {
     console.error(e);
-    res.status(500).send('Erro do servidor ao listar comics');
+    res.status(500).send('Erro do servidor');
   }
 });
 
